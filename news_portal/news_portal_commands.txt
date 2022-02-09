@@ -1,0 +1,45 @@
+python manage.py shell
+from news.models import *
+
+1. u1 = User.objects.create_user('Victor')
+    u2 = User.objects.create_user('Boris')
+
+2. a1 = Author.objects.create(to_user=u1)
+    a2 = Author.objects.create(to_user=u2)
+
+3. c1 = Category.objects.create(category_field='Science')
+    c2 = Category.objects.create(category_field='Space')
+    c3 = Category.objects.create(category_field='In the world')
+    c4 = Category.objects.create(category_field='About people')
+
+4. p1 = Post.objects.create(to_author=a1, select_field='PO', title='Quantum particles can feel the influence of gravitational fields they never touch.', content='If you’re superstitious, a black cat in your path is bad luck, even if you keep your distance. Likewise, in quantum physics, particles can feel the influence of magnetic fields that they never come into direct contact with. Now scientists have shown that this eerie quantum effect holds not just for magnetic fields, but for gravity too — and it’s no superstition.Usually, to feel the influence of a magnetic field, a particle would have to pass through it. But in 1959, physicists Yakir Aharonov and David Bohm predicted that, in a specific scenario, the conventional wisdom would fail.')
+    p2 = Post.objects.create(to_author=a2, select_field='PO', title='NASA and SpaceX investigating delayed Dragon parachute opening.', content='WASHINGTON — NASA and SpaceX are investigating the delayed opening of a parachute on a cargo Dragon spacecraft that recently returned to Earth, an incident similar to one that took place on a Crew Dragon spacecraft last year.')
+    p3 = Post.objects.create(to_author=a2, select_field='NW', title='How the cultural significance of Bulgaria bridges old and new.', content='With culture, art, history and musical traditions that stretch back thousands of years, it’s no wonder Bulgaria was home to 2019’s European Capital of Culture.')
+
+5. PostCategory.objects.create(to_post=p1, to_category=c1)
+    PostCategory.objects.create(to_post=p2, to_category=c2)
+	PostCategory.objects.create(to_post=p2, to_category=c3)
+    PostCategory.objects.create(to_post=p3, to_category=c4)
+
+6. com1 = Comment.objects.create(to_posts=p1, to_user=u1, comment_text='Its cool!!')
+    com2 = Comment.objects.create(to_posts=p1, to_user=u2, comment_text='Awesome!')
+    com3 = Comment.objects.create(to_posts=p2, to_user=u1, comment_text='Wrong information!')
+    com4 = Comment.objects.create(to_posts=p3, to_user=u2, comment_text='Great!!')
+
+7. p1.like() #1 раз.......
+	p2.like() #2 раза.......
+	p3.like() #3 раза.......
+	com1.like() #1 раз.......
+	com2.like() #2 раза.......
+	com3.like() #3 раза.......
+	com4.like() #4 раза.......
+	
+8. a1.update_rating()
+	a2.update_rating()
+	
+9. Author.objects.all().order_by('-rating')[0]
+
+10. best_post = Post.objects.all().order_by('-post_rating')[0]
+	  best_post
+
+11. Comment.objects.filter(to_posts=best_post)
