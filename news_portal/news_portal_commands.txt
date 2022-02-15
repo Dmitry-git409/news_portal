@@ -16,7 +16,7 @@ from news.models import *
     p2 = Post.objects.create(to_author=a2, select_field='PO', title='NASA and SpaceX investigating delayed Dragon parachute opening.', content='WASHINGTON — NASA and SpaceX are investigating the delayed opening of a parachute on a cargo Dragon spacecraft that recently returned to Earth, an incident similar to one that took place on a Crew Dragon spacecraft last year.')
     p3 = Post.objects.create(to_author=a2, select_field='NW', title='How the cultural significance of Bulgaria bridges old and new.', content='With culture, art, history and musical traditions that stretch back thousands of years, it’s no wonder Bulgaria was home to 2019’s European Capital of Culture.')
 
-5. PostCategory.objects.create(to_post=p1, to_category=c1)
+5. PostCategory.objects.create(to_post=p1, to_category=c1)   //    p1.to_category.add(c1)
     PostCategory.objects.create(to_post=p2, to_category=c2)
 	PostCategory.objects.create(to_post=p2, to_category=c3)
     PostCategory.objects.create(to_post=p3, to_category=c4)

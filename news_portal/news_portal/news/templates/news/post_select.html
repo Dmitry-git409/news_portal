@@ -1,0 +1,14 @@
+{%extends 'news/default.html'%}
+{% load custom_filters %}
+
+{%block title%}
+Posts
+{%endblock title%}
+
+{%block content%}
+
+<h2>{{posts.title|censor}} by: {{posts.to_author.to_user.username}}.</h2>
+<h2>Published: {{posts.time_create|date:'D M Y H:i' }}</h2>
+<p>{{posts.content|censor}}</p>
+
+{%endblock content%}
