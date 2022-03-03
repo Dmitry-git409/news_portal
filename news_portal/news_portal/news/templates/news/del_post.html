@@ -1,0 +1,38 @@
+{%extends 'news/default.html'%}
+{% load custom_filters %}
+
+{%block title%}
+<title>Delete Post</title>
+{%endblock title%}
+
+{%block content%}
+<h1>Delete your post.</h1>
+<table>
+        <tr>
+            <td>
+                <h2>Title</h2>
+            </td>
+            <td>
+                <h2>Published</h2>
+            </td>
+            <td>
+                <h2>Content</h2>
+            </td>
+        </tr>
+            <tr>
+                <td>
+                    <p>{{post.title|censor}}</p>
+                </td>
+                <td>
+                    <p>{{post.time_create|date:'D M Y: h i s'}}</p>
+                </td>
+                <td>
+                    <p>{{post.content|truncatechars:50|censor}}</p>
+                </td>
+            </tr>
+    </table>
+<form method="post">
+    {%csrf_token%}
+    <button type="submit">Delete</button>
+</form>
+{%endblock content%}

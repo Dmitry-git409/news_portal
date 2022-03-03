@@ -1,0 +1,58 @@
+{%extends 'news/default.html'%}
+
+{%block title%}
+<title>Search Page</title>
+{%endblock title%}
+
+
+{%block search%}
+    <h1>Find your post.</h1>
+    <form method="GET">
+        {{filter.form}}
+        <input type="submit" value="Search">
+    </form>
+
+    <table>
+        <tr>
+            <td>
+                <h2>Date</h2>
+            </td>
+            <td>
+                <h2>Author</h2>
+            </td>
+
+        </tr>
+        {%for p in page_obj1%}
+            <tr>
+                <td>
+                    <p>{{p.time_create}}</p>
+                </td>
+                <td>
+                    <p>{{p.to_author.to_user.username}}</p>
+                </td>
+
+            </tr>
+        {%endfor%}
+    </table>
+{%endblock search%}
+
+{%block paginate%}
+<h4>Navigate</h4>
+<p><span>
+    {%if page_obj1.has_previous%}
+    <a href="?page={{page_obj1.previous_page_number}}">Previous Page</a>
+    {%endif%}
+
+    {%for p in page_obj1.paginator.page_range%}
+        {%if page_obj1.number == p%}
+            {{p}}
+        {%elif p >= page_obj1.number|add:-2 and p <= page_obj1.number|add:2%}
+            <a href="?page={{p}}">{{p}}</a>
+        {%endif%}
+    {%endfor%}
+
+    {%if page_obj1.has_next%}
+    <a href="?page={{page_obj1.next_page_number}}">Next Page</a>
+    {%endif%}
+</span></p>
+{%endblock paginate%}

@@ -1,0 +1,65 @@
+{%extends 'news/default.html'%}
+{% load custom_filters %}
+
+{%block title%}
+<title>Main Page</title>
+{%endblock title%}
+
+{%block content%}
+    <h1>News today.</h1>
+    {%if posts%}
+    <h2>All news ({{posts|length}}).</h2>
+    <h2>{{time_now}}</h2>
+    <hr>
+            <table>
+                <tr>
+                    <td>
+                        <h2>Title</h2>
+                    </td>
+                    <td>
+                        <h2>Published</h2>
+                    </td>
+                    <td>
+                        <h2>Content</h2>
+                    </td>
+                </tr>
+                {%for p in posts|dictsortreversed:'time_create'%}
+                    <tr>
+                        <td>
+                            <p><a href="{%url 'post_list' p.id%}">{{p.title|censor}}</a>
+                                <a href="{%url 'update_post' p.id%}">Update</a>
+                                <a href="{%url 'del_post' p.id%}">Delete</a></p>
+                        </td>
+                        <td>
+                            <p>{{p.time_create|date:'D M Y: h i s'}}</p>
+                        </td>
+                        <td>
+                            <p>{{p.content|truncatechars:50|censor}}</p>
+                        </td>
+                    </tr>
+                {%endfor%}
+            </table>
+    {%endif%}
+{%endblock content%}
+
+{%block paginate%}
+<h4>Navigate</h4>
+<p><span>
+    {%if page_obj.has_previous%}
+    <a href="?page={{page_obj.previous_page_number}}">Previous Page</a>
+    {%endif%}
+
+    {%for p in page_obj.paginator.page_range%}
+        {%if page_obj.number == p%}
+            {{p}}
+        {%elif p >= page_obj.number|add:-2 and p <= page_obj.number|add:2%}
+            <a href="?page={{p}}">{{p}}</a>
+        {%endif%}
+    {%endfor%}
+
+    {%if page_obj.has_next%}
+    <a href="?page={{page_obj.next_page_number}}">Next Page</a>
+    {%endif%}
+</span></p>
+{%endblock paginate%}
+

@@ -1,0 +1,14 @@
+{%extends 'news/default.html'%}
+
+{%block title%}
+<title>Change Post</title>
+{%endblock title%}
+
+{%block content%}
+<h1>Change your post.</h1>
+<form action="{%url 'update_post' post.id%}" method="post">
+    {%csrf_token%}
+    {{form.as_p}}
+    <button type="submit">Change</button>
+</form>
+{%endblock content%}
